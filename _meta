@@ -1,0 +1,8 @@
+<package project="Mer:Trunk:Base" name="openconnect">
+  <title>Open client for Cisco AnyConnect VPN</title>
+  <description>This package provides a client for Cisco's "AnyConnect" VPN, which uses
+HTTPS and DTLS protocols.
+
+</description>
+  <url>http://www.infradead.org/openconnect.html</url>
+</package>
