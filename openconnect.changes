@@ -1,3 +1,8 @@
+* Thu Mar 15 2012 Marko Saukko <marko.saukko@gmail.com> - 3.15
+- Update to version 3.15
+- Added .yaml for spectacle
+- Added docs subpackage.
+
 * Mon May 09 2011 David Woodhouse <David.Woodhouse@intel.com> - 3.02
 - Update to 3.02 to export libopenconnect for GUI authentication
 
