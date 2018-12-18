@@ -2,7 +2,7 @@
 
 Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
-Version:    3.16
+Version:    7.08
 Release:    1
 Group:      Applications/Internet
 License:    LGPLv2+
@@ -44,7 +44,7 @@ This package provides documentation for openconnect, such as man pages.
 
 %build
 ./autogen.sh
-%configure
+%configure --with-vpnc-script=/etc/vpnc/vpnc-script
 make %{?jobs:-j%jobs}
 
 %install
@@ -66,9 +66,7 @@ rm -rf %{buildroot}%{_datadir}/openconnect
 
 %files devel
 %defattr(-,root,root,-)
-%doc TODO openconnect.html
 %{_libdir}/libopenconnect.so
-%{_libdir}/libopenconnect.a
 %{_includedir}/openconnect.h
 %{_libdir}/pkgconfig/openconnect.pc
 
