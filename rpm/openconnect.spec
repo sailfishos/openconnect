@@ -31,26 +31,31 @@ This package provides the core HTTP and authentication support from
 the OpenConnect VPN client, to be used by GUI authentication dialogs
 for NetworkManager etc.
 
-%package docs
-Summary:    Documentation package for OpenConnect VPN authentication tools
-Group:      Applications/Internet
+%package doc
+Summary:    Documentation for %{name}
+Group:      Documentation
 Requires:   %{name} = %{version}-%{release}
+Obsoletes:  %{name}-docs
 
-%description docs
-This package provides documentation for openconnect, such as man pages.
+%description doc
+Man page for %{name}.
 
 %prep
 %setup -q -n %{name}-%{version}/upstream
 
 %build
 ./autogen.sh
-%configure --with-vpnc-script=/etc/vpnc/vpnc-script
-make %{?jobs:-j%jobs}
+%configure --with-vpnc-script=/etc/vpnc/vpnc-script \
+           --without-gnutls
+make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
+
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 AUTHORS %{buildroot}%{_docdir}/%{name}-%{version}
 
 %find_lang %{name}
 
@@ -60,9 +65,9 @@ rm -rf %{buildroot}%{_datadir}/openconnect
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
+%license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
 %{_sbindir}/openconnect
-%doc COPYING.LGPL
 
 %files devel
 %defattr(-,root,root,-)
@@ -70,7 +75,7 @@ rm -rf %{buildroot}%{_datadir}/openconnect
 %{_includedir}/openconnect.h
 %{_libdir}/pkgconfig/openconnect.pc
 
-%files docs
+%files doc
 %defattr(-,root,root,-)
-%{_mandir}/man8/*
-
+%{_mandir}/man8/%{name}.*
+%{_docdir}/%{name}-%{version}
