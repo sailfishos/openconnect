@@ -2,7 +2,7 @@
 
 Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
-Version:    7.08
+Version:    8.02
 Release:    1
 Group:      Applications/Internet
 License:    LGPLv2+
@@ -53,9 +53,9 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
+rm -f %{buildroot}%/%{_libexecdir}/openconnect/tncc-wrapper.py
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
-install -m0644 AUTHORS %{buildroot}%{_docdir}/%{name}-%{version}
 
 %find_lang %{name}
 
@@ -68,6 +68,7 @@ install -m0644 AUTHORS %{buildroot}%{_docdir}/%{name}-%{version}
 %license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
 %{_sbindir}/openconnect
+%{_libexecdir}/openconnect/
 
 %files devel
 %defattr(-,root,root,-)
