@@ -53,7 +53,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
-rm -f %{buildroot}%/%{_libexecdir}/openconnect/tncc-wrapper.py
+rm -f %{buildroot}%{_libexecdir}/openconnect/tncc-wrapper.py
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 
