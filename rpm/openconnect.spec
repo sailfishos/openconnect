@@ -4,10 +4,10 @@ Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
 Version:    8.02
 Release:    1
-Group:      Applications/Internet
 License:    LGPLv2+
-URL:        http://www.infradead.org/openconnect.html
+URL:        https://git.sailfishos.org/mer-core/openconnect/
 Source0:    ftp://ftp.infradead.org/pub/openconnect/openconnect-%{version}.tar.gz
+Patch0:     Make-scripts-more-compatible-with-other-shells.patch
 Requires:   vpnc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
