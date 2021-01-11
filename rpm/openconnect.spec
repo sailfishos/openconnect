@@ -2,7 +2,7 @@
 
 Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
-Version:    8.02
+Version:    8.10
 Release:    1
 License:    LGPLv2+
 URL:        https://git.sailfishos.org/mer-core/openconnect/
@@ -53,6 +53,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
+rm -rf %{buildroot}%{_datadir}/bash-completion
 rm -f %{buildroot}%{_libexecdir}/openconnect/tncc-wrapper.py
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
