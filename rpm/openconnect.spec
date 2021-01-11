@@ -8,6 +8,9 @@ License:    LGPLv2+
 URL:        https://git.sailfishos.org/mer-core/openconnect/
 Source0:    ftp://ftp.infradead.org/pub/openconnect/openconnect-%{version}.tar.gz
 Patch0:     Make-scripts-more-compatible-with-other-shells.patch
+Patch1:     0001-setup-default-port-443-in-openconnect_vpninfo_new.patch
+Patch2:     0002-remove-port-setup-in-ssl-connect.patch
+Patch3:     0003-check-that-port-is-in-valid-range.patch
 Requires:   vpnc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
