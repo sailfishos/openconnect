@@ -1,0 +1,27 @@
+From ceaa3dbccf2166cbb470e15d94ca8fddbc5ff454 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Luk=C3=A1=C5=A1=20Karas?= <lukas.karas@centrum.cz>
+Date: Sat, 14 Nov 2020 20:15:40 +0100
+Subject: [PATCH 2/3] remove port setup in ssl connect
+
+Signed-off-by: Lukas Karas <lukas.karas@centrum.cz>
+---
+ ssl.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/ssl.c b/ssl.c
+index 7d277c3e..3bac5216 100644
+--- a/ssl.c
++++ b/ssl.c
+@@ -207,9 +207,6 @@ int connect_https_socket(struct openconnect_info *vpninfo)
+ 	int ssl_sock = -1;
+ 	int err;
+ 
+-	if (!vpninfo->port)
+-		vpninfo->port = 443;
+-
+ 	/* If we're talking to a server which told us it has dynamic DNS, don't
+ 	   just re-use its previous IP address. If we're talking to a proxy, we
+ 	   can use *its* previous IP address. We expect it'll re-do the DNS
+-- 
+2.25.1
+
