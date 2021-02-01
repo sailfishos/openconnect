@@ -1,4 +1,5 @@
 %define keepstatic 1
+%define __requires_exclude /system/bin/sh
 
 Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
