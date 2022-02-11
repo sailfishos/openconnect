@@ -37,7 +37,6 @@ for NetworkManager etc.
 %package doc
 Summary:    Documentation for %{name}
 Requires:   %{name} = %{version}-%{release}
-Obsoletes:  %{name}-docs
 
 %description doc
 Man page for %{name}.
