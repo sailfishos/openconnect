@@ -26,7 +26,6 @@ HTTPS and DTLS protocols.
 
 %package devel
 Summary:    Development package for OpenConnect VPN authentication tools
-Group:      Applications/Internet
 Requires:   %{name} = %{version}-%{release}
 Provides:   openconnect-devel-static = %{version}-%{release}
 
@@ -37,9 +36,7 @@ for NetworkManager etc.
 
 %package doc
 Summary:    Documentation for %{name}
-Group:      Documentation
 Requires:   %{name} = %{version}-%{release}
-Obsoletes:  %{name}-docs
 
 %description doc
 Man page for %{name}.
@@ -58,7 +55,6 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
 rm -rf %{buildroot}%{_datadir}/bash-completion
-rm -f %{buildroot}%{_libexecdir}/openconnect/tncc-wrapper.py
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 
@@ -69,6 +65,9 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 %postun -p /sbin/ldconfig
 
 %files -f %{name}.lang
+# Do not pull in Python3
+%exclude %{_libexecdir}/openconnect/tncc-emulate.py
+%exclude %{_libexecdir}/openconnect/tncc-wrapper.py
 %defattr(-,root,root,-)
 %license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
