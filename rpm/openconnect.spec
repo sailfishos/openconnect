@@ -56,7 +56,6 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}%{_datadir}/openconnect
 rm -rf %{buildroot}%{_datadir}/bash-completion
-rm -f %{buildroot}%{_libexecdir}/openconnect/tncc-wrapper.py
 
 mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 
@@ -69,6 +68,7 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 %files -f %{name}.lang
 # Do not pull in Python3
 %exclude %{_libexecdir}/openconnect/tncc-emulate.py
+%exclude %{_libexecdir}/openconnect/tncc-wrapper.py
 %defattr(-,root,root,-)
 %license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
