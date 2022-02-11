@@ -26,7 +26,6 @@ HTTPS and DTLS protocols.
 
 %package devel
 Summary:    Development package for OpenConnect VPN authentication tools
-Group:      Applications/Internet
 Requires:   %{name} = %{version}-%{release}
 Provides:   openconnect-devel-static = %{version}-%{release}
 
@@ -37,7 +36,6 @@ for NetworkManager etc.
 
 %package doc
 Summary:    Documentation for %{name}
-Group:      Documentation
 Requires:   %{name} = %{version}-%{release}
 Obsoletes:  %{name}-docs
 
