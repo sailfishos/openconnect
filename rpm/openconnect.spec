@@ -69,6 +69,8 @@ mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
 %postun -p /sbin/ldconfig
 
 %files -f %{name}.lang
+# Do not pull in Python3
+%exclude %{_libexecdir}/openconnect/tncc-emulate.py
 %defattr(-,root,root,-)
 %license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
