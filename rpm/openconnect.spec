@@ -1,28 +1,54 @@
-%define keepstatic 1
-%define __requires_exclude /system/bin/sh
+%define keepstatic 1 # FIXME remove
+%define libname libopenconnect5
 
 Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
-Version:    8.10
-Release:    1
-License:    LGPLv2+
-URL:        https://git.sailfishos.org/mer-core/openconnect/
-Source0:    ftp://ftp.infradead.org/pub/openconnect/openconnect-%{version}.tar.gz
-Patch0:     Make-scripts-more-compatible-with-other-shells.patch
-Patch1:     0001-setup-default-port-443-in-openconnect_vpninfo_new.patch
-Patch2:     0002-remove-port-setup-in-ssl-connect.patch
-Patch3:     0003-check-that-port-is-in-valid-range.patch
+Version:    9.12
+Release:    0
+License:    LGPL-2.1-or-later
+URL:        https://github.ocm/sailfishos/openconnect
+Source0:    openconnect-%{version}.tar.gz
+Patch0:     0001-Make-scripts-more-compatible-with-other-shells.patch
 Requires:   vpnc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  libproxy-devel
+BuildRequires:  pkgconfig
+BuildRequires:  python3-base
+BuildRequires:  python3-lxml
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(liblz4)
+BuildRequires:  pkgconfig(libproxy-1.0)
+#FIXME check wich other dependencies should be added
+# BuildRequires:  pkgconfig(krb5)
+# BuildRequires:  pkgconfig(libpcsclite)
+# BuildRequires:  pkgconfig(libpskc)
+# BuildRequires:  pkgconfig(socket_wrapper)
+# BuildRequires:  pkgconfig(stoken)
+# BuildRequires:  pkgconfig(uid_wrapper)
 BuildRequires:  gettext
 
 %description
-This package provides a client for Cisco's "AnyConnect" VPN, which uses
-HTTPS and DTLS protocols.
+This package provides a multi-protocol client for a number of SSL
+VPNs, such as:
+
+* Cisco's "AnyConnect" VPN (HTTPS/DTLS) supported by the ASA5500 Series,
+  by IOS 12.4(9)T or later on Cisco SR500, 870, 880, 1800, 2800, 3800,
+  7200 Series and Cisco 7301 Routers, and probably others.
+* Array Networks AG SSL VPN
+* Juniper SSL VPN
+* Pulse Connect Secure
+* Palo Alto Networks GlobalProtect SSL VPN
+* F5 Big-IP SSL VPN
+* Fortinet Fortigate SSL VPN
+
+%package -n %{libname}
+Summary:        Libraries for %{name}
+
+%description -n %{libname}
+This package provides a multi-protocol client for a number of SSL
+VPNs, including Cisco's "AnyConnect" VPN.
 
 %package devel
 Summary:    Development package for OpenConnect VPN authentication tools
@@ -41,46 +67,62 @@ Requires:   %{name} = %{version}-%{release}
 %description doc
 Man page for %{name}.
 
+
+%lang_package
+
 %prep
-%setup -q -n %{name}-%{version}/upstream
+%autosetup -p1 -n %{name}-%{version}/upstream
 
 %build
 ./autogen.sh
-%configure --with-vpnc-script=/etc/vpnc/vpnc-script \
-           --without-gnutls
-make %{?_smp_mflags}
+%configure --docdir=%{_docdir}/%{name} \
+           --disable-silent-rules \
+           --with-vpnc-script=%{_sysconfdir}/openconnect/vpnc-script \
+           --without-gnutls \
+           --with-openssl --without-openssl-version-check \
+           --without-gnutls-version-check \
+           --with-lz4 \
+           --with-libproxy \
+           # --with-stoken \ FIXME
+           # --with-libpcsclite \
+           # --with-libpskc \
+           # --with-gssapi \
+           %{nil}
+%make_build
 
 %install
-rm -rf %{buildroot}
 %make_install
+# do not install androit script
+rm %{buildroot}%{_libexecdir}/%{name}/*android.sh
+
 rm -rf %{buildroot}%{_datadir}/openconnect
 rm -rf %{buildroot}%{_datadir}/bash-completion
 
-mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}
-
+find %{buildroot} -type f -name "*.la" -delete -print
 %find_lang %{name}
 
-%post -p /sbin/ldconfig
+#%check
+#%make_build check
 
-%postun -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
 
-%files -f %{name}.lang
-# Do not pull in Python3
-%exclude %{_libexecdir}/openconnect/tncc-emulate.py
-%exclude %{_libexecdir}/openconnect/tncc-wrapper.py
-%defattr(-,root,root,-)
+%postun -n %{libname} -p /sbin/ldconfig
+
+%files
+%license COPYING.LGPL
+%{_sbindir}/openconnect
+%{_libexecdir}/%{name}/*.{py,sh}
+
+
+%files -n %{libname}
 %license COPYING.LGPL
 %{_libdir}/libopenconnect.so.*
-%{_sbindir}/openconnect
-%{_libexecdir}/openconnect/
-
 %files devel
-%defattr(-,root,root,-)
 %{_libdir}/libopenconnect.so
 %{_includedir}/openconnect.h
 %{_libdir}/pkgconfig/openconnect.pc
 
 %files doc
-%defattr(-,root,root,-)
 %{_mandir}/man8/%{name}.*
-%{_docdir}/%{name}-%{version}
+
+%files locale -f %{name}.lang
