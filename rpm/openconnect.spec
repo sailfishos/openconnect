@@ -5,8 +5,8 @@ Name:       openconnect
 Summary:    Open client for Cisco AnyConnect VPN
 Version:    9.12
 Release:    0
-License:    LGPL-2.1-or-later
-URL:        https://github.ocm/sailfishos/openconnect
+License:    LGPLv2+
+URL:        https://github.com/sailfishos/openconnect
 Source0:    openconnect-%{version}.tar.gz
 Patch0:     0001-Make-scripts-more-compatible-with-other-shells.patch
 Requires:   vpnc
@@ -92,7 +92,7 @@ Man page for %{name}.
 
 %install
 %make_install
-# do not install androit script
+# do not install android script
 rm %{buildroot}%{_libexecdir}/%{name}/*android.sh
 
 rm -rf %{buildroot}%{_datadir}/openconnect
@@ -112,7 +112,9 @@ find %{buildroot} -type f -name "*.la" -delete -print
 %license COPYING.LGPL
 %{_sbindir}/openconnect
 %{_libexecdir}/%{name}/*.{py,sh}
-
+# Do not pull in Python3
+%exclude %{_libexecdir}/openconnect/tncc-emulate.py
+%exclude %{_libexecdir}/openconnect/tncc-wrapper.py
 
 %files -n %{libname}
 %license COPYING.LGPL
@@ -124,5 +126,3 @@ find %{buildroot} -type f -name "*.la" -delete -print
 
 %files doc
 %{_mandir}/man8/%{name}.*
-
-%files locale -f %{name}.lang
