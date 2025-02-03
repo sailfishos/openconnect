@@ -9,6 +9,7 @@ License:    LGPLv2+
 URL:        https://github.com/sailfishos/openconnect
 Source0:    openconnect-%{version}.tar.gz
 Patch0:     0001-Make-scripts-more-compatible-with-other-shells.patch
+Patch1:     0002-Do-not-use-release-version.patch
 Requires:   vpnc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig

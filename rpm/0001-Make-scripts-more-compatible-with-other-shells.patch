@@ -1,4 +1,4 @@
-From 7e1dbd40474a82281eda3f787102e29671ded7be Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Tomi=20Lepp=C3=A4nen?= <tomi.leppanen@jolla.com>
 Date: Thu, 6 Aug 2020 11:43:34 +0300
 Subject: [PATCH] Make scripts more compatible with other shells
@@ -14,7 +14,7 @@ Signed-off-by: Tomi Leppänen <tomi.leppanen@jolla.com>
  3 files changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/trojans/csd-post.sh b/trojans/csd-post.sh
-index 3c3cc397..ca5bb47f 100755
+index 3c3cc3970226451c6f99f6ff2d36feea4d7c6aed..ca5bb47fe6a5b5f8079165e19fb1327cadb35d00 100755
 --- a/trojans/csd-post.sh
 +++ b/trojans/csd-post.sh
 @@ -80,8 +80,8 @@ TICKET=
@@ -29,7 +29,7 @@ index 3c3cc397..ca5bb47f 100755
  done
  
 diff --git a/trojans/csd-wrapper.sh b/trojans/csd-wrapper.sh
-index 02a9a151..56626c98 100755
+index 02a9a15145be21539a89081e7a867eedc5c35cf3..56626c98875cb7be03a641b0124f8bf669373161 100755
 --- a/trojans/csd-wrapper.sh
 +++ b/trojans/csd-wrapper.sh
 @@ -54,19 +54,19 @@ CERTHASH=
@@ -112,7 +112,7 @@ index 02a9a151..56626c98 100755
              fi
  
 diff --git a/trojans/hipreport.sh b/trojans/hipreport.sh
-index f452d80f..593e274c 100755
+index f452d80f16e7c451a6dec3730c673169a5a5fc49..593e274cdb8dc4e5367b3eacba318bddfa2b5864 100755
 --- a/trojans/hipreport.sh
 +++ b/trojans/hipreport.sh
 @@ -51,7 +51,7 @@ while [ "$1" ]; do
@@ -124,6 +124,3 @@ index f452d80f..593e274c 100755
      echo "Parameters --cookie, --md5, and --client-ip and/or --client-ipv6 are required" >&2
      exit 1;
  fi
--- 
-2.43.1
-

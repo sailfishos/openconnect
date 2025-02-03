@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@jolla.com>
+Date: Mon, 3 Feb 2025 14:03:55 +0200
+Subject: [PATCH] Do not use release version
+
+---
+ version.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/version.sh b/version.sh
+index c8dda2f543055f87f746aafb85c54294c5932047..69a8698d9b4430082c529a73b40ad8ba123da4b2 100755
+--- a/version.sh
++++ b/version.sh
+@@ -11,8 +11,8 @@ if [ -d ${GIT_DIR:-.git} ] && tag=`git describe --tags`; then
+ 	# Does the index show uncommitted changes?
+ 	git diff-index --exit-code HEAD > /dev/null || \
+ 		v="$v"-dirty
+-elif [ -n "$RPM_PACKAGE_VERSION" ] && [ -n "$RPM_PACKAGE_RELEASE" ]; then
+-	v="v$RPM_PACKAGE_VERSION-$RPM_PACKAGE_RELEASE"
++elif [ -n "$RPM_PACKAGE_VERSION" ]; then
++	v="v$RPM_PACKAGE_VERSION"
+ else # XXX: Equivalent for .deb packages?
+ 	v="$v"-unknown
+ fi
